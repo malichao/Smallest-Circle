@@ -10,10 +10,15 @@ set(CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
 
 include_directories(
-	include/SmallestCircle
+    include/
+    ${GTEST_INCLUDE_DIRS}
 )
 
 set(sources 
+    src/smallest_circle.cpp
 )
 
-add_executable(SmallestCircle ${sources})
+add_executable(SmallestCircle
+    ${sources}
+    src/smallest_circle_test.cpp
+)
