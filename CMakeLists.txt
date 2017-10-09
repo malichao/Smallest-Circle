@@ -16,6 +16,7 @@ include_directories(
 
 set(sources 
     src/smallest_circle.cpp
+    src/common.cpp
 )
 
 add_executable(SmallestCircle

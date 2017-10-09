@@ -1,6 +1,7 @@
 #ifndef SMALLEST_CIRCLE_H
 #define SMALLEST_CIRCLE_H
 #include <vector>
+#include <cstddef>
 #include <SmallestCircle/common.h>
 namespace smallest_circle {
 
@@ -12,10 +13,11 @@ class SmallestCircle {
 
  private:
   static Circle FindSmallestCircle(const std::vector<Point>& points,
-                                   const Point& q);
+                                   const size_t end, const Point& q);
 
   static Circle FindSmallestCircle(const std::vector<Point>& points,
-                                   const Point& q1, const Point& q2);
+                                   const size_t end, const Point& q1,
+                                   const Point& q2);
 };
 }
 
