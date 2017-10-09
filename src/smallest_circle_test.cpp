@@ -25,12 +25,25 @@ using namespace smallest_circle;
     }                                                                   \
   }
 
+void TestCircle3Points() {
+  Circle test1(Point{-3, 4}, Point{4, 5}, Point{1, -4});
+  AssertDoubleEqual(test1.center.x, 1);
+  AssertDoubleEqual(test1.center.y, 1);
+  AssertDoubleEqual(test1.radius, 5);
+}
+
+void TestFindSmallestCircle1() {
+  vector<Point> test_points = {{-3, 4}, {4, 5}, {1, -4}};
+  auto result = SmallestCircle::FindSmallestCircle(test_points);
+  AssertDoubleEqual(result.center.x, 1);
+  AssertDoubleEqual(result.center.y, 1);
+  AssertDoubleEqual(result.radius, 5);
+}
+
 int main(int argc, char** argv) {
   try {
-    Circle test1(Point{-3, 4}, Point{4, 5}, Point{1, -4});
-    AssertDoubleEqual(test1.center.x, 1);
-    AssertDoubleEqual(test1.center.y, 1);
-    AssertDoubleEqual(test1.radius, 5);
+    TestCircle3Points();
+    TestFindSmallestCircle1();
     cout << "Passed all test cases!\n";
   }
   catch (std::string& e) {
