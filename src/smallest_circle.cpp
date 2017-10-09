@@ -16,7 +16,7 @@ Circle SmallestCircle::FindSmallestCircle(const vector<Point> &points) {
   Circle min_circle;
   for (int i = 2; i < points_.size(); i++) {
     if (!min_circle.Encloses(points_[i])) {
-      min_circle = FindSmallestCircle(points_, 0, i - 1, points_[i]);
+      min_circle = FindSmallestCircle(points_, i - 1, points_[i]);
     }
   }
   return min_circle;
