@@ -109,6 +109,17 @@ void TestFindSmallestCircle5(const int range, const int test_nums) {
                                        {RangeRand(), RangeRand()}};
   Circle ground_truth_circle = Circle(
       ground_truth_points[0], ground_truth_points[1], ground_truth_points[2]);
+  for (int i = 0; i < ground_truth_points.size(); i++) {
+    for (int j = 1 + 1; j < ground_truth_points.size(); j++) {
+      Circle temp = Circle(ground_truth_points[i], ground_truth_points[j]);
+      bool enclose_all = true;
+      for (auto& p : ground_truth_points) enclose_all &= temp.Encloses(p);
+      if (enclose_all && temp.radius < ground_truth_circle.radius) {
+        ground_truth_circle =
+            Circle(ground_truth_points[i], ground_truth_points[j]);
+      }
+    }
+  }
 
   auto GeneratePointWithinCircle = [](const Circle& circle) {
     double theta = rand() % 360 / 180.0 * M_PI;
@@ -117,9 +128,11 @@ void TestFindSmallestCircle5(const int range, const int test_nums) {
                  circle.center.y + radius * sin(theta)};
   };
 
-  vector<Point> test_points(test_nums);
+  vector<Point> test_points(test_nums - 3);
   for (auto& p : test_points)
     p = GeneratePointWithinCircle(ground_truth_circle);
+  test_points.insert(test_points.end(), ground_truth_points.begin(),
+                     ground_truth_points.end());
 
   auto result = SmallestCircle::FindSmallestCircle(test_points);
 
@@ -157,7 +170,7 @@ int main(int argc, char** argv) {
     //    TestFindSmallestCircle2();
     //    TestFindSmallestCircle3();
     //    TestFindSmallestCircle4();
-    TestFindSmallestCircle5(100, 10);
+    TestFindSmallestCircle5(100, 1000);
     cout << "Passed all test cases!\n";
   }
   catch (std::string& e) {
