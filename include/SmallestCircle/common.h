@@ -39,6 +39,7 @@ struct Circle {
   // Build a circle with 3 points on its circumference, reference:
   // https://en.wikipedia.org/wiki/Circumscribed_circle
   // section: Cartesian coordinates from cross- and dot-products
+  // WARN: If all 3 points are colinear, the constructor will break
   Circle(const Point& p1, const Point& p2, const Point& p3);
 
   bool Encloses(const Point& p);

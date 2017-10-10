@@ -1,5 +1,7 @@
 #include "SmallestCircle/smallest_circle.h"
 #include <algorithm>
+#include <cassert>
+
 namespace smallest_circle {
 using namespace std;
 // TODO: test the following specail cases:
@@ -42,7 +44,7 @@ Circle SmallestCircle::FindSmallestCircle(const std::vector<Point> &points,
                                           const size_t end, const Point &q1,
                                           const Point &q2) {
   Circle min_circle(q1, q2);
-  for (int i = 0; i <= end; i++) {
+  for (int i = 0; i < end; i++) {
     if (!min_circle.Encloses(points[i])) {
       auto circle1 = Circle(q1, points[i]);
       if (circle1.Encloses(q2)) {
@@ -50,7 +52,7 @@ Circle SmallestCircle::FindSmallestCircle(const std::vector<Point> &points,
         continue;
       }
       auto circle2 = Circle(q2, points[i]);
-      if (circle1.Encloses(q1)) {
+      if (circle2.Encloses(q1)) {
         min_circle = circle2;
         continue;
       }

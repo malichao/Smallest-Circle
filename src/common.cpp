@@ -1,5 +1,6 @@
 #include <SmallestCircle/common.h>
 #include <cmath>
+#include <cassert>
 
 namespace smallest_circle {
 using namespace std;
@@ -65,10 +66,9 @@ Circle::Circle(const Point &p1, const Point &p2, const Point &p3) {
   const Point p23 = p2 - p3;
   const Point p31 = p3 - p1;
   const Point p32 = p3 - p2;
-  double t1 = p12.Cross(p23);
-  double t2 = p12.Length();
-  double t3 = p23.Length();
-  double t4 = p31.Length();
+  double vector_cross = p12.Cross(p23);
+  assert(vector_cross != 0);
+
   this->radius =
       p12.Length() * p23.Length() * p31.Length() / (fabs(p12.Cross(p23)) * 2);
 
@@ -77,10 +77,9 @@ Circle::Circle(const Point &p1, const Point &p2, const Point &p3) {
   double beta = pow(p13.Length(), 2) * p21.Dot(p23) / temp;
   double gamma = pow(p12.Length(), 2) * p31.Dot(p32) / temp;
 
-  auto pp1 = p1 * alpha;
-  auto pp2 = p2 * beta;
-  auto pp3 = p3 * gamma;
   this->center = p1 * alpha + p2 * beta + p3 * gamma;
+  assert(!std::isnan(this->center.x));
+  assert(!std::isnan(this->center.y));
 }
 
 bool Circle::Encloses(const Point &p) {

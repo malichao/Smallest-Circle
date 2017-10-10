@@ -170,7 +170,7 @@ int main(int argc, char** argv) {
     //    TestFindSmallestCircle2();
     //    TestFindSmallestCircle3();
     //    TestFindSmallestCircle4();
-    TestFindSmallestCircle5(100, 1000);
+    TestFindSmallestCircle5(100, 5000);
     cout << "Passed all test cases!\n";
   }
   catch (std::string& e) {
