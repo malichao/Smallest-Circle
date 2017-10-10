@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <chrono>
+
 namespace smallest_circle {
 static const double Epsilon = 1e-6;
 struct Point {
@@ -47,6 +49,8 @@ struct Circle {
   Point center;
   double radius = 0;
 };
+
+const double Now();
 }
 
 #endif  // COMMON_H

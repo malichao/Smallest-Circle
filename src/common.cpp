@@ -85,4 +85,9 @@ Circle::Circle(const Point &p1, const Point &p2, const Point &p3) {
 bool Circle::Encloses(const Point &p) {
   return this->radius > 0 && this->center.Distance(p) <= this->radius;
 }
+
+const double Now() {
+  auto now = std::chrono::system_clock::now().time_since_epoch();
+  return now.count() / 1e9;
+}
 }

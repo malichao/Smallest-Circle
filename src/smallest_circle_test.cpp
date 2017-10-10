@@ -134,7 +134,9 @@ void TestFindSmallestCircle5(const int range, const int test_nums) {
   test_points.insert(test_points.end(), ground_truth_points.begin(),
                      ground_truth_points.end());
 
+  auto t1 = Now();
   auto result = SmallestCircle::FindSmallestCircle(test_points);
+  cout << "Testing " << test_nums << " points took " << Now() - t1 << "s\n";
 
   ofstream out("ground_truth_points.data");
   for (auto& p : ground_truth_points) {
@@ -166,11 +168,11 @@ void TestFindSmallestCircle5(const int range, const int test_nums) {
 int main(int argc, char** argv) {
   try {
     TestCircle3Points();
-    //    TestFindSmallestCircle1();
-    //    TestFindSmallestCircle2();
-    //    TestFindSmallestCircle3();
-    //    TestFindSmallestCircle4();
-    TestFindSmallestCircle5(100, 5000);
+    TestFindSmallestCircle1();
+    TestFindSmallestCircle2();
+    TestFindSmallestCircle3();
+    TestFindSmallestCircle4();
+    TestFindSmallestCircle5(1000, 500000);
     cout << "Passed all test cases!\n";
   }
   catch (std::string& e) {
