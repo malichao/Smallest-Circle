@@ -16,7 +16,7 @@ Circle SmallestCircle::FindSmallestCircle(const vector<Point> &points) {
   vector<Point> points_(points);
 
   // Section 4.4, random permutation makes the algorithm an average running time
-  // O(n)
+  // of O(n)
   random_shuffle(points_.begin(), points_.end());
   Circle min_circle;
   for (int i = 2; i < points_.size(); i++) {
@@ -32,7 +32,7 @@ Circle SmallestCircle::FindSmallestCircle(const std::vector<Point> &points,
   Circle min_circle(q, points.front());
   for (int i = 1; i <= end; i++) {
     if (!min_circle.Encloses(points[i])) {
-      min_circle = FindSmallestCircle(points, i - 1, points[i], q);
+      min_circle = FindSmallestCircle(points, i, points[i], q);
     }
   }
   return min_circle;
