@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <fstream>
+#include <cassert>
 
 using namespace std;
 using namespace smallest_circle;
@@ -101,22 +102,23 @@ void TestFindSmallestCircle4() {
 }
 
 void TestFindSmallestCircle5(const int range, const int test_nums) {
+  assert(test_nums >= 3);
   auto RangeRand = [&]() { return (rand() % (range * 2) - range) * 1.0; };
 
-  srand(0);  // Fix value for debugging
+  srand(0);  // Fixed value for debugging
   vector<Point> ground_truth_points = {{RangeRand(), RangeRand()},
                                        {RangeRand(), RangeRand()},
                                        {RangeRand(), RangeRand()}};
   Circle ground_truth_circle = Circle(
       ground_truth_points[0], ground_truth_points[1], ground_truth_points[2]);
+  // Brute force method to generate ground truth smallest circle
   for (int i = 0; i < ground_truth_points.size(); i++) {
-    for (int j = 1 + 1; j < ground_truth_points.size(); j++) {
+    for (int j = i + 1; j < ground_truth_points.size(); j++) {
       Circle temp = Circle(ground_truth_points[i], ground_truth_points[j]);
       bool enclose_all = true;
       for (auto& p : ground_truth_points) enclose_all &= temp.Encloses(p);
       if (enclose_all && temp.radius < ground_truth_circle.radius) {
-        ground_truth_circle =
-            Circle(ground_truth_points[i], ground_truth_points[j]);
+        ground_truth_circle = temp;
       }
     }
   }
@@ -138,6 +140,7 @@ void TestFindSmallestCircle5(const int range, const int test_nums) {
   auto result = SmallestCircle::FindSmallestCircle(test_points);
   cout << "Testing " << test_nums << " points took " << Now() - t1 << "s\n";
 
+  cout << "Writing test data into the files...\n";
   ofstream out("ground_truth_points.data");
   for (auto& p : ground_truth_points) {
     out << p.x << "," << p.y << "\n";
@@ -172,7 +175,14 @@ int main(int argc, char** argv) {
     TestFindSmallestCircle2();
     TestFindSmallestCircle3();
     TestFindSmallestCircle4();
-    TestFindSmallestCircle5(1000, 500000);
+
+    int test_range = 1000;
+    int test_num = 500;
+    if (argc == 3) {
+      test_range = atoi(argv[1]);
+      test_num = atoi(argv[2]);
+    }
+    TestFindSmallestCircle5(test_range, test_num);
     cout << "Passed all test cases!\n";
   }
   catch (std::string& e) {

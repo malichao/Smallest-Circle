@@ -13,13 +13,13 @@ struct Point {
   const double Distance(const Point& other) const;
 
   // Return squared distance, faster than Distance()
-  const double DistanceSqure(const Point& other) const;
+  const double DistanceSquare(const Point& other) const;
 
   // Return the length of the vector
   const double Length() const;
 
   // Return the squared length of the vector
-  const double LengthSqure() const;
+  const double LengthSquare() const;
 
   // Cross product(z component)
   const double Cross(const Point& other) const;

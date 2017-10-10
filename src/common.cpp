@@ -1,6 +1,7 @@
 #include <SmallestCircle/common.h>
 #include <cmath>
 #include <cassert>
+#include <iostream>
 
 namespace smallest_circle {
 using namespace std;
@@ -10,14 +11,14 @@ const double Point::Distance(const Point &other) const {
   return std::hypot(other.x - this->x, other.y - this->y);
 }
 
-const double Point::DistanceSqure(const Point &other) const {
+const double Point::DistanceSquare(const Point &other) const {
   return (other.x - this->x) * (other.x - this->x) +
          (other.y - this->y) * (other.y - this->y);
 }
 
 const double Point::Length() const { return sqrt(Dot(*this)); }
 
-const double Point::LengthSqure() const { return Dot(*this); }
+const double Point::LengthSquare() const { return Dot(*this); }
 
 const double Point::Cross(const Point &other) const {
   return this->x * other.y - this->y * other.x;
@@ -100,8 +101,7 @@ Circle::Circle(const Point &p1, const Point &p2, const Point &p3) {
 bool Circle::Encloses(const Point &p) {
   // Removing hypot improves run time from 0.32s to 0.15s for 500,000 points
   //  return this->radius > 0 && this->center.Distance(p) <= this->radius;
-  return this->radius > 0 &&
-         this->center.DistanceSqure(p) <= this->radius * this->radius;
+  return radius > 0 && center.DistanceSquare(p) <= radius * radius + Epsilon;
 }
 
 // ---------------------------- Utility Functions ----------------------------
