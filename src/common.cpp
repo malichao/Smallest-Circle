@@ -46,6 +46,11 @@ const Point Point::operator*(const double scale) const {
   return temp;
 }
 
+const bool Point::operator==(const Point &other) const {
+  return fabs(this->x - other.x) <= Epsilon &&
+         fabs(this->y - other.y) <= Epsilon;
+}
+
 const double Point::Cross(const Point &other) const {
   return this->x * other.y - this->y * other.x;
 }

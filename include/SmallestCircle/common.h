@@ -23,6 +23,8 @@ struct Point {
 
   const Point operator*(const double scale) const;
 
+  const bool operator==(const Point& other) const;
+
   const double Cross(const Point& other) const;
 
   const double Dot(const Point& other) const;

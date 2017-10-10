@@ -31,8 +31,8 @@ Circle SmallestCircle::FindSmallestCircle(const vector<Point> &points) {
 
 Circle SmallestCircle::FindSmallestCircle(const std::vector<Point> &points,
                                           const size_t end, const Point &q) {
-  Circle min_circle(q, points.front());
-  for (int i = 1; i < end; i++) {
+  Circle min_circle(q, points[end]);
+  for (int i = 0; i < end; i++) {
     if (!min_circle.Encloses(points[i])) {
       min_circle = FindSmallestCircle(points, i, points[i], q);
     }
@@ -46,16 +46,7 @@ Circle SmallestCircle::FindSmallestCircle(const std::vector<Point> &points,
   Circle min_circle(q1, q2);
   for (int i = 0; i < end; i++) {
     if (!min_circle.Encloses(points[i])) {
-      auto circle1 = Circle(q1, points[i]);
-      if (circle1.Encloses(q2)) {
-        min_circle = circle1;
-        continue;
-      }
-      auto circle2 = Circle(q2, points[i]);
-      if (circle2.Encloses(q1)) {
-        min_circle = circle2;
-        continue;
-      }
+      if (q1 == points[i] || q2 == points[i]) continue;
       min_circle = Circle(q1, q2, points[i]);
     }
   }
