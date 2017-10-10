@@ -16,6 +16,10 @@ make
 cd build
 ./SmallestCircle
 ```
+You could also play with the range and number of test points. The following command tests 10,000 points within 100:
+```
+./SmallestCircle 100 10000
+```
 To visualize the test data,
 ```
 cd src
@@ -40,14 +44,13 @@ This structure is chosen so that the algorithm could do an efficient point-circl
 ```cpp
 struct Point {
   // Return the squared length of the vector
-  const double LengthSqure() const { return Dot(*this); }
+  const double LengthSquare() const { return Dot(*this); }
 };
 
 struct Circle {
  // Check if the circle encloses a point
   bool Encloses(const Point& p){
-    return this->radius > 0 &&
-         this->center.DistanceSqure(p) <= this->radius * this->radius;
+    return radius > 0 && center.DistanceSquare(p) <= radius * radius + Epsilon;
 }
 };
 ```
