@@ -9,6 +9,8 @@ struct Point {
 
   const double Distance(const Point& other) const;
 
+  const double DistanceSqure(const Point& other) const;
+
   const double Length() const;
 
   Point& operator+=(const Point& other);

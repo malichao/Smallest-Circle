@@ -8,6 +8,11 @@ const double Point::Distance(const Point &other) const {
   return std::hypot(other.x - this->x, other.y - this->y);
 }
 
+const double Point::DistanceSqure(const Point &other) const {
+  return (other.x - this->x) * (other.x - this->x) +
+         (other.y - this->y) * (other.y - this->y);
+}
+
 const double Point::Length() const { return sqrt(Dot(*this)); }
 
 Point &Point::operator+=(const Point &other) {
@@ -83,7 +88,10 @@ Circle::Circle(const Point &p1, const Point &p2, const Point &p3) {
 }
 
 bool Circle::Encloses(const Point &p) {
-  return this->radius > 0 && this->center.Distance(p) <= this->radius;
+  // Removing hypot improves run time from 0.32s to 0.15s for 500,000 points
+  //  return this->radius > 0 && this->center.Distance(p) <= this->radius;
+  return this->radius > 0 &&
+         this->center.DistanceSqure(p) <= this->radius * this->radius;
 }
 
 const double Now() {
