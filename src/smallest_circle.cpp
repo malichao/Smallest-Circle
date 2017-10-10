@@ -11,15 +11,16 @@ using namespace std;
 //      3 points: triangles, return should be circumcircle
 //      3 points on a line: similar to 2 points
 Circle SmallestCircle::FindSmallestCircle(const vector<Point> &points) {
+  // Handle special cases
   if (points.empty()) return {};
   if (points.size() == 1) return Circle(points.back(), 0);
   if (points.size() == 2) return Circle(points.front(), points.back());
 
-  vector<Point> points_(points);
-
   // Section 4.4, random permutation makes the algorithm an average running time
   // of O(n)
+  vector<Point> points_(points);
   random_shuffle(points_.begin(), points_.end());
+
   Circle min_circle(points_[0], points_[1]);
   for (int i = 2; i < points_.size(); i++) {
     if (!min_circle.Encloses(points_[i])) {

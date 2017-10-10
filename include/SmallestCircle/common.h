@@ -4,14 +4,28 @@
 #include <chrono>
 
 namespace smallest_circle {
+
 static const double Epsilon = 1e-6;
+
 struct Point {
 
+  // Return Euclidean distance using std::hypot
   const double Distance(const Point& other) const;
 
+  // Return squared distance, faster than Distance()
   const double DistanceSqure(const Point& other) const;
 
+  // Return the length of the vector
   const double Length() const;
+
+  // Return the squared length of the vector
+  const double LengthSqure() const;
+
+  // Cross product(z component)
+  const double Cross(const Point& other) const;
+
+  // Dot product
+  const double Dot(const Point& other) const;
 
   Point& operator+=(const Point& other);
 
@@ -24,10 +38,6 @@ struct Point {
   const Point operator*(const double scale) const;
 
   const bool operator==(const Point& other) const;
-
-  const double Cross(const Point& other) const;
-
-  const double Dot(const Point& other) const;
 
   double x, y;
 };
@@ -48,6 +58,7 @@ struct Circle {
   // WARN: If all 3 points are colinear, the constructor will break
   Circle(const Point& p1, const Point& p2, const Point& p3);
 
+  // Check if the circle encloses a point
   bool Encloses(const Point& p);
 
   Point center;
